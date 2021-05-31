@@ -14,3 +14,5 @@ The image-webpack-loader (Links to an external site.) plugin allows you to enhan
 The SW-precache-webpack (Links to an external site.) plugin allows you to use service workers to cache your external project dependencies. It will generate a service worker file, using sw-precache, and add it to your build directory.
 
 The webpack-PWA-manifest (Links to an external site.) plugin generates a manifest.json for your PWA, with auto icon resizing and fingerprinting support.
+
+1st commit
