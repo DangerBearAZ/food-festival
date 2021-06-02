@@ -1,0 +1,1 @@
+if (window.location.hreg.indexOf("schedule") > 1) {...}
