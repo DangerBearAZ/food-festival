@@ -1,24 +1,51 @@
 //We'll use a core Node.js module that we've used previously, called path. 
 //Remember, webpack uses Node.js to build our application, so we can use npm modules and the require module.
 const webpack = require("webpack")
-const path = require('path'); 
+const path = require('path');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 //For a basic configuration, we need to provide webpack with three properties: entry, output, and mode.
 module.exports = {
-  entry: "./assets/js/script.js",
+  entry: {
+    app: "./assets/js/script.js",
+    events: "./assets/js/events.js",
+    schedule: "./assets/js/schedule.js",
+    tickets: "./assets/js/tickets.js"
+  },
   output: {
-    path: path.join(__dirname + "/dist"),
-    filename: "main.bundle.js"
+    filename: "[name].bundle.js",
+    path: __dirname + "/dist",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jpg$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              esModule: false,
+              name(file) {
+                return "[path][name].[ext]"
+              },
+              publicPath: function (url) {
+                return url.replace("../", "/assets/")
+              }
+            }
+          },
+          loader: 'image-webpack-loader'
+        ]
+      }
+    ]
   },
   plugins: [
-  new webpack.ProvidePlugin({
-    $: "jquery",
-    jQuery: "jquery"
-  }),
-  new BundleAnalyzerPlugin({
-    analyzerMode: "static",  // the report outputs to an HTML file in the dist folder
-  })
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",  // the report outputs to an HTML file in the dist folder
+    })
   ],
   mode: "development"
 };
